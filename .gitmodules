@@ -1,0 +1,6 @@
+[submodule "easemployee"]
+	path = easemployee
+	url = git@github.com:smkdev-id/easemployee.git
+[submodule "php-opencv-examples"]
+	path = php-opencv-examples
+	url = git@github.com:php-opencv/php-opencv-examples.git
