@@ -1,0 +1,14 @@
+LVM07 - Development with Laravel: Model
+
+Objectiveness
+- Konsep Dasar Database
+- Database Migration & Raw Queries
+- Seeding, Factories, Query Builder
+- View, Trigger, Function, Stored Procedure
+- Eloquent Query Scopes
+- Polymorphic Relationships
+- Eloquent Accessors and Mutators
+- Eloquent Collections
+- Soft Deletes
+- Model Observers
+- Feature Tests

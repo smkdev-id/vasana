@@ -1,0 +1,13 @@
+LVM06 - Development with Laravel: View
+
+Objectiveness
+- Blade Component Concepts
+- Loading View
+- Control Structure & Passing Data
+- Layout
+- Form, Components, Subview
+- Service Injection
+- Custom Directive
+- JS Framework Integration
+- Compiling Assets
+- Feature Tests
