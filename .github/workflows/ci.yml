@@ -3,7 +3,7 @@ name: Build and Deploy Docker Image
 on:
   push:
     branches:
-      - main  # Equivalent to "only: master" in GitLab
+      - main
 
 jobs:
   build:
@@ -26,13 +26,10 @@ jobs:
         # run: echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
 
       - name: Set version number
-        run: echo ${{ github.run_id }} > version  # Equivalent to $CI_PIPELINE_IID in GitLab
+        run: echo ${{ github.run_id }} > version
 
-      - name: Build and tag Docker image
-        run: |
-          docker build -t ghcr.io/${{ github.repository }}:latest -t ghcr.io/${{ github.repository }}:${{ github.run_id }} .
+      - name: Build Docker image
+        run: docker build -t ghcr.io/${{ github.repository }}:latest .
 
       - name: Push Docker images
-        run: |
-          docker push ghcr.io/${{ github.repository }}:latest
-          docker push ghcr.io/${{ github.repository }}:${{ github.run_id }}
+        run: docker push ghcr.io/${{ github.repository }}:latest
