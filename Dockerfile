@@ -1,38 +1,24 @@
-# Use an official PHP runtime as a parent image
-FROM php:8.1-fpm
+FROM node:latest as npm_stage
+WORKDIR /app
+COPY package.json .
+COPY package-lock.json .
+RUN npm install
 
-# Set working directory
-WORKDIR /var/www
+FROM composer:latest as composer_stage
+WORKDIR /app
+COPY composer.json .
+COPY composer.lock .
+COPY . /app
+RUN composer install --ignore-platform-reqs --no-dev -a -vvv
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
-    unzip \
-    git \
-    curl
+FROM dunglas/frankenphp
+RUN install-php-extensions pcntl pdo_pgsql intl
+COPY --from=npm_stage /app /app
+COPY --from=composer_stage /app /app
+COPY . /app
+RUN php artisan cache:clear
+RUN php artisan config:clear
+RUN php artisan view:clear
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql
-
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Copy existing application directory contents
-COPY . /var/www
-
-# Copy existing application directory permissions
-RUN chown -R www-data:www-data /var/www
-
-# Expose port 9000 and start php-fpm server
-EXPOSE 9000
-CMD ["php-fpm"]
+WORKDIR /app
+ENTRYPOINT ["php", "artisan", "octane:frankenphp"]

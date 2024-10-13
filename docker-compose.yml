@@ -2,7 +2,7 @@ version: '3.9'
 services:
   app:
     image: ghcr.io/smkdev-id/tools:latest
-    container_name: smkdev-tools
+    container_name: tools-smkdev-app
     restart: always
     networks:
       - public
@@ -12,9 +12,9 @@ services:
       - /etc/php/conf.d/uploads.ini:/usr/local/etc/php/conf.d/00-up.ini
     labels:
       - traefik.enable=true
-      - traefik.http.routers.smkdev-tools.entrypoints=web-secure
-      - traefik.http.routers.smkdev-tools.rule=Host(`tools.smk.dev`)
-      - traefik.http.routers.smkdev-tools.priority=9
+      - traefik.http.routers.tools-smkdev-app.entrypoints=web-secure
+      - traefik.http.routers.tools-smkdev-app.rule=Host(`tools.smk.dev`)
+      - traefik.http.routers.tools-smkdev-app.priority=9
 networks:
   public:
     external: true
