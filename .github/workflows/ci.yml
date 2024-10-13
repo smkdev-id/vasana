@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Log in to GitHub Container Registry
-        uses: ./.github/workflows/docker-login.yml
+        uses: ./.github/workflows/registry.yml
 
       # - name: Set up environment file
         # run: echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
