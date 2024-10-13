@@ -1,0 +1,31 @@
+name: Build and Deploy Docker Image
+
+on:
+  push:
+    branches:
+      - main  # Equivalent to "only: master" in GitLab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to GitHub Container Registry
+        uses: ./.github/workflows/docker-login.yml
+
+      # - name: Set up environment file
+        # run: echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
+
+      - name: Set version number
+        run: echo ${{ github.run_id }} > version  # Equivalent to $CI_PIPELINE_IID in GitLab
+
+      - name: Build and tag Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}:latest -t ghcr.io/${{ github.repository }}:${{ github.run_id }} .
+
+      - name: Push Docker images
+        run: |
+          docker push ghcr.io/${{ github.repository }}:latest
+          docker push ghcr.io/${{ github.repository }}:${{ github.run_id }}
