@@ -7,14 +7,17 @@ services:
     networks:
       - public
       - database
+    ports:
+      - "5000:5000"
     volumes:
       - app:/var/www/html/storage/framework/
       - /etc/php/conf.d/uploads.ini:/usr/local/etc/php/conf.d/00-up.ini
     labels:
-      - traefik.enable: true
-      - traefik.http.routers.tools-smkdev-app.entrypoints: web-secure
-      - traefik.http.routers.tools-smkdev-app.rule: Host(`tools.smk.dev`)
-      # - traefik.http.services.platform-smkdev-app.loadbalancer.server.port: 8000
+      traefik.enable: true
+      traefik.http.routers.tools-smkdev-app.entrypoints: web-secure
+      traefik.http.routers.tools-smkdev-app.rule: Host(`tools.smk.dev`)
+      traefik.http.routers.tools-smkdev-app.priority: 9
+
 networks:
   public:
     external: true

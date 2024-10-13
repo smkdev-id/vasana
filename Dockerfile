@@ -21,4 +21,5 @@ COPY . /app
 # RUN php artisan view:clear
 
 WORKDIR /app
-ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
+EXPOSE 5000
+ENTRYPOINT ["php", "artisan", "octane:frankenphp", "--host=0.0.0.0", "--port=5000"]
