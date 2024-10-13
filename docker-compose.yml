@@ -7,6 +7,8 @@ services:
     networks:
       - public
       - database
+    ports:
+      - "5000:5000"
     volumes:
       - app:/var/www/html/storage/framework/
       - /etc/php/conf.d/uploads.ini:/usr/local/etc/php/conf.d/00-up.ini
