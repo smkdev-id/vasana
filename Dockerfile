@@ -1,7 +1,7 @@
 FROM node:latest as npm_stage
 WORKDIR /app
 COPY package.json .
-COPY package-lock.json .
+# COPY package-lock.json .
 RUN npm install
 
 FROM composer:latest as composer_stage

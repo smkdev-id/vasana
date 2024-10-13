@@ -11,7 +11,7 @@ class OllamaController extends Controller
     {
         // Customize URL and data to fit the local Ollama API requirements
         $response = Http::post('http://localhost:11434/api/generate', [
-            'model' => 'tinyllama:latest',
+            'model' => 'qwen:0.5b',
             'prompt' => $request->input('prompt'),
         ]);
 
