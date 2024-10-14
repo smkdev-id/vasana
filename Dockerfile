@@ -4,13 +4,13 @@ WORKDIR /app
 COPY package.json .
 RUN npm install
 
-# Stage 2: Install composer
+# Stage 2: Install composer and Octane
 FROM composer:latest as composer_stage
 WORKDIR /app
 COPY composer.json .
 COPY composer.lock .
 COPY . /app
-RUN ls -la /app/bootstrap
+RUN composer require laravel/octane
 RUN composer install --ignore-platform-reqs --no-dev -a -vvv
 
 # Stage 3: Run frankenphp
@@ -19,9 +19,7 @@ RUN install-php-extensions pcntl pdo_pgsql intl
 COPY --from=npm_stage /app /app
 COPY --from=composer_stage /app /app
 COPY . /app
-# RUN php artisan cache:clear
-# RUN php artisan config:clear
-# RUN php artisan view:clear
+RUN php artisan optimize:clear
 
 WORKDIR /app
-ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
+ENTRYPOINT ["php", "artisan", "octane:start", "--server=frankenphp", "--port=8080"]
