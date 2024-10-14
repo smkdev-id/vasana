@@ -19,7 +19,7 @@ RUN install-php-extensions pcntl pdo_pgsql intl
 COPY --from=npm_stage /app /app
 COPY --from=composer_stage /app /app
 COPY . /app
-RUN php artisan optimize:clear
+# RUN php artisan optimize:clear
 
 WORKDIR /app
 ENTRYPOINT ["php", "artisan", "octane:start", "--server=frankenphp", "--port=8080"]
