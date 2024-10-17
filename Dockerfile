@@ -10,7 +10,6 @@ WORKDIR /app
 COPY composer.json .
 COPY composer.lock .
 COPY . /app
-RUN composer require laravel/octane
 RUN composer install --ignore-platform-reqs --no-dev -a -vvv
 
 # Stage 3: Run frankenphp
@@ -22,4 +21,4 @@ COPY . /app
 # RUN php artisan optimize:clear
 
 WORKDIR /app
-ENTRYPOINT ["php", "artisan", "octane:start", "--server=frankenphp", "--port=8080"]
+ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
