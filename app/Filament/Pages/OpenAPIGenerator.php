@@ -10,5 +10,5 @@ class OpenAPIGenerator extends Page
     protected static string $view = 'filament.pages.openapi-generator';
     protected static ?string $title = 'OpenAPI Generator';
     protected static ?string $navigationIcon = 'heroicon-c-document-text';
-    protected static ?string $navigationGroup = 'Tools';
+    protected static ?string $navigationGroup = 'More';
 }

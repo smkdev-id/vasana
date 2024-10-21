@@ -19,5 +19,3 @@ yarn-error.log
 /.idea
 /.vscode
 /.zed
-service/
-deployment/

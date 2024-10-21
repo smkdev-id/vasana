@@ -1,5 +1,8 @@
 name: Build and Deploy Docker Image
 
+# TODO: WE can use commit id for image tag on ghcr.io
+# TODO: remove .env inside docker image, can be attach later
+
 on:
   push:
     branches:
@@ -26,15 +29,16 @@ jobs:
         run: echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
 
       - name: Set version number
-        run: echo ${{ github.run_id }} > version
-
+        run: echo ${{ github.sha }} > version
+      
+      - run: cp deployment/Dockerfile.main ./Dockerfile
       - name: Build Docker image
         run: |
           docker build \
           -t ghcr.io/${{ github.repository }}:latest \
-          -t ghcr.io/${{ github.repository }}:${{ github.run_id }} .
+          -t ghcr.io/${{ github.repository }}:${{ github.sha }} .
 
       - name: Push Docker images
         run: |
           docker push ghcr.io/${{ github.repository }}:latest
-          docker push ghcr.io/${{ github.repository }}:${{ github.run_id }}
+          docker push ghcr.io/${{ github.repository }}:${{ github.sha }}

@@ -10,5 +10,5 @@ class CSVtoTable extends Page
     protected static string $view = 'filament.pages.csv-to-schema';
     protected static ?string $title = 'CSV-to-Schema Converter';
     protected static ?string $navigationIcon = 'heroicon-s-arrows-right-left';
-    protected static ?string $navigationGroup = 'Tools';
+    protected static ?string $navigationGroup = 'More';
 }

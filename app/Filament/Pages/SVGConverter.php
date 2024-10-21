@@ -15,7 +15,7 @@ class SVGConverter extends Page
     protected static string $view = 'filament.pages.svg-converter';
     protected static ?string $title = 'SVG Converter';
     protected static ?string $navigationIcon = 'heroicon-m-cube-transparent';
-    protected static ?string $navigationGroup = 'Tools';
+    protected static ?string $navigationGroup = 'More';
 
     // Form state (for the file upload)
     public $svg_file;
