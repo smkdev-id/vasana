@@ -38,7 +38,7 @@ COPY . .
 RUN composer clear-cache
 
 # Install PHP dependencies
-RUN php -d memory_limit=-1 /usr/bin/composer install --no-dev -a -vvv
+RUN composer install --no-dev -a -vvv --ignore-platform-reqs
 
 # Install Node.js dependencies (from package.json)
 RUN npm install
