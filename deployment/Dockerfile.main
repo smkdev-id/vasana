@@ -1,61 +1,48 @@
-# Use the official PHP 8.3 with Apache
 FROM php:8.3-apache
 
-# Install system dependencies
+# Install necessary libraries and PHP extensions
 RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    zip \
-    unzip \
-    git \
-    curl \
-    libonig-dev \
-    libxml2-dev \
-    libzip-dev \
-    gnupg \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_mysql mbstring gd zip exif pcntl xml \
-    && docker-php-ext-install zip # Ensure PHP zip extension is installed
+    libpng-dev libjpeg-dev libfreetype6-dev libzip-dev unzip curl git libicu-dev && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install gd pdo pdo_mysql zip intl && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Enable Apache mod_rewrite
+# Enable Apache mod_rewrite for Laravel
 RUN a2enmod rewrite
-
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
 
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Install Composer globally
+RUN curl -sS https://getcomposer.org/installer | php -- \
+    --install-dir=/usr/local/bin --filename=composer
 
-# Install Node.js
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs
+VOLUME /var/www/html/
 
-# Set working directory
+# Set the working directory
 WORKDIR /var/www/html
 
-# Copy project files
-COPY . .
+# Application files to the container
+COPY . /var/www/html
 
-# Clear composer cache to avoid any issues
-RUN composer clear-cache
+# Custom entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Install PHP dependencies
-RUN composer install --no-dev -a -vvv --ignore-platform-reqs
+# Run composer install and optimize autoloader
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Install Node.js dependencies (from package.json)
-RUN npm install
-
-# Build assets for production
-RUN npm run build
-
-# Optimize Filament
+# Laravel Filament Optimizations
 RUN php artisan filament:optimize
 
-# Set permissions for Laravel
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Correct permissions for Laravel
+RUN chown -R www-data:www-data /var/www/html
+    # chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Expose the port for Apache
+# Entrypoint
+ENTRYPOINT [ "docker-entrypoint.sh" ]
+
+# Port 80 for Apache
 EXPOSE 80
 
-# Start the Apache service in the foreground
+# Start Apache when the container starts
 CMD ["apache2-foreground"]

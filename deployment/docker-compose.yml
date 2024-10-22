@@ -1,60 +1,28 @@
-############## STILL BOILERPLATE, DON'T USE IT FOR NOW ##############
+# TODO: Use Case for Deployment on Portainer
+#       - docker stack deploy (Docker Swarm)
+#       - docker compose up (Docker Compose)
 
-version: '3.8'
+# Can update later for more deployment puposes
+
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: laravel_filament_app
+  tools:
+    image: ghcr.io/smkdev-id/smkdev-tools:latest
+    container_name: smkdev-tools-app
+    volumes:
+      - app:/var/www/html
     ports:
-      - "8000:80"  # Map port 8000 on host to port 80 in the container
-    volumes:
-      - .:/var/www/html  # Mount your current directory into the container
+      - "8000:80" # Expose Apache on port 8080 of the host
     environment:
-      - APP_ENV=production
-      - APP_DEBUG=false
-      - APP_KEY=${APP_KEY}  # Use an environment variable for the app key
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_DATABASE=laravel_filament
-      - DB_USERNAME=filament_user
-      - DB_PASSWORD=secret
-    depends_on:
-      - db
+      - APACHE_DOCUMENT_ROOT=/var/www/html/public
+      - APP_ENV=local
+      - APP_DEBUG=true
     networks:
-      - laravel_network
-
-  db:
-    image: mysql:8.0
-    container_name: filament_db
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: laravel_filament
-      MYSQL_USER: filament_user
-      MYSQL_PASSWORD: secret
-    volumes:
-      - dbdata:/var/lib/mysql
-    ports:
-      - "3306:3306"
-    networks:
-      - laravel_network
-
-  node:
-    image: node:18
-    container_name: filament_node
-    working_dir: /var/www/html
-    volumes:
-      - .:/var/www/html
-    networks:
-      - laravel_network
-    command: bash -c "npm install && npm run build"
+      - laravel-network
 
 volumes:
-  dbdata:
+  app:
 
 networks:
-  laravel_network:
+  laravel-network:
     driver: bridge
