@@ -42,7 +42,7 @@ RUN chown -R www-data:www-data /var/www/html
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 
 # Port 80 for Apache
-EXPOSE 80
+EXPOSE 8080
 
 # Start Apache when the container starts
 CMD ["apache2-foreground"]
