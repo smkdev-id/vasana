@@ -20,5 +20,4 @@ yarn-error.log
 /.vscode
 /.zed
 Dockerfile
-compose.yml
-Caddyfile
+app/Filament/Widgets/_later
