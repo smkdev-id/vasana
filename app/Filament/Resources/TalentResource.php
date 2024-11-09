@@ -5,19 +5,16 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TalentResource\Pages;
 use App\Filament\Resources\TalentResource\RelationManagers;
 use App\Models\Talent;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+// TODO: Talent Database
 class TalentResource extends Resource
 {
     protected static ?string $model = Talent::class;
     protected static ?string $navigationIcon = 'heroicon-m-user-group';
-    
 
     public static function form(Form $form): Form
     {

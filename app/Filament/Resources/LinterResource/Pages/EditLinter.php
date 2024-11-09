@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\Tools\Resources\LinterResource\Pages;
+namespace App\Filament\Resources\LinterResource\Pages;
 
-use App\Filament\Clusters\Tools\Resources\LinterResource;
+use App\Filament\Resources\LinterResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 

@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Filament\Clusters\Tools\Resources;
+namespace App\Filament\Resources;
 
-use App\Filament\Clusters\Tools\Resources;
 use App\Filament\Resources\LinterResource\Pages;
 use App\Filament\Resources\LinterResource\RelationManagers;
 use App\Models\Linter;
@@ -11,11 +10,12 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
+
+// TODO: Code Linter
 class LinterResource extends Resource
 {
     protected static ?string $model = Linter::class;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Tools';
 
     public static function form(Form $form): Form
     {
@@ -54,9 +54,9 @@ class LinterResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Resources\LinterResource\Pages\ListLinters::route('/'),
-            'create' => Resources\LinterResource\Pages\CreateLinter::route('/create'),
-            'edit' => Resources\LinterResource\Pages\EditLinter::route('/{record}/edit'),
+            'index' => Pages\ListLinters::route('/'),
+            'create' => Pages\CreateLinter::route('/create'),
+            'edit' => Pages\EditLinter::route('/{record}/edit'),
         ];
     }
 }

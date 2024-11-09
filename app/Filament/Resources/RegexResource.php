@@ -13,11 +13,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+// TODO: Regex Reader
 class RegexResource extends Resource
 {
     protected static ?string $model = Regex::class;
     protected static ?string $navigationIcon = 'heroicon-s-arrow-path-rounded-square';
-    protected static ?string $navigationGroup = 'Free Usage';
 
     public static function form(Form $form): Form
     {

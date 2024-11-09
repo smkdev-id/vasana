@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\Tools\Resources\GistResource\Pages;
+namespace App\Filament\Resources\GistResource\Pages;
 
-use App\Filament\Clusters\Tools\Resources\GistResource;
+use App\Filament\Resources\GistResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Clusters\Tools\Resources;
+namespace App\Filament\Resources;
 
 use App\Filament\Resources\GistResource\Pages;
 use App\Filament\Resources\GistResource\RelationManagers;
@@ -10,11 +10,11 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
+// TODO: Gist Immitation
 class GistResource extends Resource
 {
     protected static ?string $model = Gist::class;
     protected static ?string $navigationIcon = 'heroicon-o-code-bracket';
-    protected static ?string $navigationGroup = 'Tools';
 
     public static function form(Form $form): Form
     {
@@ -53,9 +53,9 @@ class GistResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => \App\Filament\Clusters\Tools\Resources\GistResource\Pages\ListGists::route('/'),
-            'create' => \App\Filament\Clusters\Tools\Resources\GistResource\Pages\CreateGist::route('/create'),
-            'edit' => \App\Filament\Clusters\Tools\Resources\GistResource\Pages\EditGist::route('/{record}/edit'),
+            'index' => Pages\ListGists::route('/'),
+            'create' => Pages\CreateGist::route('/create'),
+            'edit' => Pages\EditGist::route('/{record}/edit'),
         ];
     }
 }

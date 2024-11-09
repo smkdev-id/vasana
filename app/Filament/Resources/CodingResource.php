@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Clusters\Platform\Resources;
+namespace App\Filament\Resources;
 
 use App\Filament\Resources\CodingResource\Pages;
 use App\Filament\Resources\CodingResource\RelationManagers;
@@ -10,11 +10,11 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 
+// TODO: Coding Challenge Resource
 class CodingResource extends Resource
 {
     protected static ?string $model = Coding::class;
     protected static ?string $navigationIcon = 'heroicon-o-square-3-stack-3d';
-    protected static ?string $navigationGroup = 'Platform';
 
     public static function form(Form $form): Form
     {
@@ -53,9 +53,9 @@ class CodingResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => \App\Filament\Clusters\Platform\Resources\CodingResource\Pages\ListCodings::route('/'),
-            'create' => \App\Filament\Clusters\Platform\Resources\CodingResource\Pages\CreateCoding::route('/create'),
-            'edit' => \App\Filament\Clusters\Platform\Resources\CodingResource\Pages\EditCoding::route('/{record}/edit'),
+            'index' => Pages\ListCodings::route('/'),
+            'create' => Pages\CreateCoding::route('/create'),
+            'edit' => Pages\EditCoding::route('/{record}/edit'),
         ];
     }
 }

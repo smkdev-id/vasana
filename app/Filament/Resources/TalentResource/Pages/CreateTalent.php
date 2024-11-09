@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Clusters\Platform\Resources\TalentResource\Pages;
+namespace App\Filament\Resources\TalentResource\Pages;
 
 use App\Filament\Resources\TalentResource;
 use Filament\Resources\Pages\CreateRecord;

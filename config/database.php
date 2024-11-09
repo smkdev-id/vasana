@@ -93,6 +93,7 @@ return [
             'charset' => env('DB_CHARSET', 'utf8'),
             'prefix' => '',
             'prefix_indexes' => true,
+            # TODO: Create New Schema for this apps. This `public` state will be replaced
             'search_path' => 'public',
             'sslmode' => 'prefer',
         ],
