@@ -1,0 +1,25 @@
+# TODO: Use Case for Deployment on Portainer
+#       - docker stack deploy (Docker Swarm)
+#       - docker compose up (Docker Compose)
+
+# Can update later for more deployment puposes
+
+
+services:
+  tools:
+    image: ghcr.io/smkdev-id/smkdev-tools:latest
+    container_name: smkdev-tools-app
+    volumes:
+      - app:/var/www/html
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+    networks:
+      - public
+
+volumes:
+  app:
+
+networks:
+  public:
+    external: true
