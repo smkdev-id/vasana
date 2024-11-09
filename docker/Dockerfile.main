@@ -23,7 +23,7 @@ WORKDIR /var/www/html
 COPY . /var/www/html
 
 # Custom entrypoint script
-COPY /var/www/html/docker/docker-entrypoint.sh /docker-entrypoint.sh
+RUN cp /var/www/html/docker/docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
 # Entrypoint
