@@ -31,9 +31,6 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 # Run composer install and optimize autoloader
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Laravel Filament Optimizations
-RUN php artisan filament:optimize
-
 # Correct permissions for Laravel
 RUN chown -R www-data:www-data /var/www/html
     # chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache

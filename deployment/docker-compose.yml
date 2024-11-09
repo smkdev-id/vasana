@@ -11,18 +11,15 @@ services:
     container_name: smkdev-tools-app
     volumes:
       - app:/var/www/html
-    ports:
-      - "8000:80" # Expose Apache on port 8080 of the host
     environment:
-      - APACHE_DOCUMENT_ROOT=/var/www/html/public
       - APP_ENV=local
       - APP_DEBUG=true
     networks:
-      - laravel-network
+      - public
 
 volumes:
   app:
 
 networks:
-  laravel-network:
-    driver: bridge
+  public:
+    external: true

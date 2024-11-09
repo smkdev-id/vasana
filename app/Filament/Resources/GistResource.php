@@ -1,23 +1,20 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Clusters\Tools\Resources;
 
 use App\Filament\Resources\GistResource\Pages;
 use App\Filament\Resources\GistResource\RelationManagers;
 use App\Models\Gist;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class GistResource extends Resource
 {
     protected static ?string $model = Gist::class;
     protected static ?string $navigationIcon = 'heroicon-o-code-bracket';
-    protected static ?string $navigationGroup = 'Free Usage';
+    protected static ?string $navigationGroup = 'Tools';
 
     public static function form(Form $form): Form
     {
@@ -56,9 +53,9 @@ class GistResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListGists::route('/'),
-            'create' => Pages\CreateGist::route('/create'),
-            'edit' => Pages\EditGist::route('/{record}/edit'),
+            'index' => \App\Filament\Clusters\Tools\Resources\GistResource\Pages\ListGists::route('/'),
+            'create' => \App\Filament\Clusters\Tools\Resources\GistResource\Pages\CreateGist::route('/create'),
+            'edit' => \App\Filament\Clusters\Tools\Resources\GistResource\Pages\EditGist::route('/{record}/edit'),
         ];
     }
 }

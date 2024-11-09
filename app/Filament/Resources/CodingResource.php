@@ -1,23 +1,20 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Clusters\Platform\Resources;
 
 use App\Filament\Resources\CodingResource\Pages;
 use App\Filament\Resources\CodingResource\RelationManagers;
 use App\Models\Coding;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CodingResource extends Resource
 {
     protected static ?string $model = Coding::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-square-3-stack-3d';
+    protected static ?string $navigationGroup = 'Platform';
 
     public static function form(Form $form): Form
     {
@@ -56,9 +53,9 @@ class CodingResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCodings::route('/'),
-            'create' => Pages\CreateCoding::route('/create'),
-            'edit' => Pages\EditCoding::route('/{record}/edit'),
+            'index' => \App\Filament\Clusters\Platform\Resources\CodingResource\Pages\ListCodings::route('/'),
+            'create' => \App\Filament\Clusters\Platform\Resources\CodingResource\Pages\CreateCoding::route('/create'),
+            'edit' => \App\Filament\Clusters\Platform\Resources\CodingResource\Pages\EditCoding::route('/{record}/edit'),
         ];
     }
 }

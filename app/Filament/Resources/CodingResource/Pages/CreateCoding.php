@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\CodingResource\Pages;
+namespace App\Filament\Clusters\Platform\Resources\CodingResource\Pages;
 
-use App\Filament\Resources\CodingResource;
-use Filament\Actions;
+use App\Filament\Clusters\Platform\Resources\CodingResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateCoding extends CreateRecord

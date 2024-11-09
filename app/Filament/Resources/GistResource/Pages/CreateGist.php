@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\GistResource\Pages;
+namespace App\Filament\Clusters\Tools\Resources\GistResource\Pages;
 
-use App\Filament\Resources\GistResource;
-use Filament\Actions;
+use App\Filament\Clusters\Tools\Resources\GistResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateGist extends CreateRecord

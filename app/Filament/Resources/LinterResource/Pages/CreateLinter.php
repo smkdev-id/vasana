@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\LinterResource\Pages;
+namespace App\Filament\Clusters\Tools\Resources\LinterResource\Pages;
 
-use App\Filament\Resources\LinterResource;
-use Filament\Actions;
+use App\Filament\Clusters\Tools\Resources\LinterResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateLinter extends CreateRecord
