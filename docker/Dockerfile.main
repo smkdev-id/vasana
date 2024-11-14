@@ -33,6 +33,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 RUN composer install --quiet --no-interaction --no-dev --prefer-dist --optimize-autoloader
 
 # Generate an application key
+RUN mv .env.example .env
 RUN php artisan key:generate --quiet --no-interaction
 
 # Set proper permissions for Laravel storage and cache directories
