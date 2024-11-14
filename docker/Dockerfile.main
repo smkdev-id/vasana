@@ -23,14 +23,17 @@ WORKDIR /var/www/html
 # Application files to the container
 COPY . /var/www/html
 
+# Run Laravel-specific setup commands
+RUN composer install --quiet --no-interaction --no-dev --prefer-dist --optimize-autoloader
+
 # Make sure that the .env file is copied
 COPY .env.example .env
 
 # Generate an application key
 RUN php artisan key:generate --quiet --no-interaction
 
-# Run Laravel-specific setup commands
-RUN composer install --quiet --no-interaction --no-dev --prefer-dist --optimize-autoloader
+# Set proper permissions for Laravel storage and cache directories
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Ensure all database tables are created
 RUN php artisan migrate:refresh --quiet --no-interaction --force
