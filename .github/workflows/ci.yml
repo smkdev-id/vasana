@@ -25,8 +25,8 @@ jobs:
       - name: Set up Docker BuildKit
         run: echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
 
-      - name: Set up environment file
-        run: echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
+      # - name: Set up environment file
+      #   run: echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
 
       - name: Set version number
         run: echo ${{ github.sha }} > version
