@@ -20,7 +20,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 WORKDIR /var/www/html
 COPY . /var/www/html
 
-COPY ./docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 RUN composer install --quiet --no-interaction --no-dev --prefer-dist --optimize-autoloader

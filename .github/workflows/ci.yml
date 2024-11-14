@@ -29,6 +29,7 @@ jobs:
         run: echo ${{ github.sha }} > version
       
       - run: cp docker/Dockerfile.main ./Dockerfile
+      - run: cp docker/docker-entrypoint.sh ./docker-entrypoint.sh
       - name: Build Docker image
         run: |
           docker build \
