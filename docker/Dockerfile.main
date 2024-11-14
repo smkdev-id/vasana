@@ -2,9 +2,9 @@ FROM php:8.3-apache
 
 # Install necessary libraries and PHP extensions
 RUN apt-get update && apt-get install -y \
-    libpng-dev libjpeg-dev libfreetype6-dev libzip-dev unzip curl git libicu-dev && \
+    libpng-dev libjpeg-dev libfreetype6-dev libzip-dev unzip curl git libicu-dev libpq-dev && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install gd pdo pdo_mysql zip intl && \
+    docker-php-ext-install gd pdo pdo_pgsql zip intl && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Enable Apache mod_rewrite for Laravel
@@ -13,8 +13,9 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
 
 # Install Composer globally
-RUN curl -sS https://getcomposer.org/installer | php -- \
-    --install-dir=/usr/local/bin --filename=composer
+# RUN curl -sS https://getcomposer.org/installer | php -- \
+#     --install-dir=/usr/local/bin --filename=composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # Set the working directory
 WORKDIR /var/www/html
@@ -22,12 +23,22 @@ WORKDIR /var/www/html
 # Application files to the container
 COPY . /var/www/html
 
-# Custom entrypoint script
-RUN cp /var/www/html/docker/docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
+# Run Laravel-specific setup commands
+RUN composer install --quiet --no-interaction --no-dev --prefer-dist --optimize-autoloader
 
-# Entrypoint
-ENTRYPOINT [ "/docker-entrypoint.sh" ]
+# Ensure all database tables are created
+RUN php artisan migrate:refresh --quiet --no-interaction --force
+
+# Create storage symbolic link
+RUN php artisan storage:link --quiet --no-interaction --force
+
+# Run optimizations
+RUN php artisan optimize --quiet --no-interaction
+
+RUN php artisan filament:optimize --quiet --no-interaction
+
+# Set ownership of the files to www-data user
+RUN chown -R www-data:www-data /var/www/html
 
 # Port 80 for Apache
 EXPOSE 80
