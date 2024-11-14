@@ -22,18 +22,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GH_TOKEN }}
 
-      # - name: Set up Docker BuildKit
-      #   run: echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
-
-      # - name: Set up environment file
-      #   run: echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
+      - name: Set up Docker BuildKit
+        run: echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
 
       - name: Set version number
         run: echo ${{ github.sha }} > version
       
       - run: cp docker/Dockerfile.main ./Dockerfile
-      - run: cp docker/docker-entrypoint.sh ./docker-entrypoint.sh
-      - name: Build & Push Docker image
+      - name: Build Docker image
         run: |
           docker build \
           -t ghcr.io/${{ github.repository }}:latest \
