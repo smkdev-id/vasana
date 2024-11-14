@@ -1,20 +1,26 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\User\Resources;
 
-use App\Filament\Resources\GistResource\Pages;
-use App\Filament\Resources\GistResource\RelationManagers;
-use App\Models\Gist;
+use App\Filament\User\Resources\CommaResource\Pages;
+use App\Filament\User\Resources\CommaResource\RelationManagers;
+use App\Models\Comma;
+use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-// TODO: Gist Immitation
-class GistResource extends Resource
+// TODO: CSV to Table
+class CommaResource extends Resource
 {
-    protected static ?string $model = Gist::class;
-    protected static ?string $navigationIcon = 'heroicon-c-rocket-launch';
+    protected static ?string $model = Comma::class;
+
+    protected static ?string $navigationIcon = 'heroicon-o-table-cells';
 
     public static function form(Form $form): Form
     {
@@ -28,7 +34,10 @@ class GistResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('title'),
+                TextColumn::make('slug'),
+                IconColumn::make('is_featured')
+                    ->boolean(),
             ])
             ->filters([
                 //
@@ -53,9 +62,9 @@ class GistResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListGists::route('/'),
-            'create' => Pages\CreateGist::route('/create'),
-            'edit' => Pages\EditGist::route('/{record}/edit'),
+            'index' => Pages\ListCommas::route('/'),
+            'create' => Pages\CreateComma::route('/create'),
+            'edit' => Pages\EditComma::route('/{record}/edit'),
         ];
     }
 }

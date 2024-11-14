@@ -1,20 +1,23 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\User\Resources;
 
-use App\Filament\Resources\GistResource\Pages;
-use App\Filament\Resources\GistResource\RelationManagers;
-use App\Models\Gist;
+use App\Filament\User\Resources\TodoResource\Pages;
+use App\Filament\User\Resources\TodoResource\RelationManagers;
+use App\Models\Todo;
+use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-// TODO: Gist Immitation
-class GistResource extends Resource
+// TODO: TODO List Apps
+class TodoResource extends Resource
 {
-    protected static ?string $model = Gist::class;
-    protected static ?string $navigationIcon = 'heroicon-c-rocket-launch';
+    protected static ?string $model = Todo::class;
+    protected static ?string $navigationIcon = 'heroicon-o-list-bullet';
 
     public static function form(Form $form): Form
     {
@@ -53,9 +56,9 @@ class GistResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListGists::route('/'),
-            'create' => Pages\CreateGist::route('/create'),
-            'edit' => Pages\EditGist::route('/{record}/edit'),
+            'index' => Pages\ListTodos::route('/'),
+            'create' => Pages\CreateTodo::route('/create'),
+            'edit' => Pages\EditTodo::route('/{record}/edit'),
         ];
     }
 }

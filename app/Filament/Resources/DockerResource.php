@@ -2,19 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\GistResource\Pages;
-use App\Filament\Resources\GistResource\RelationManagers;
-use App\Models\Gist;
+use App\Filament\Resources\DockerResource\Pages;
+use App\Filament\Resources\DockerResource\RelationManagers;
+use App\Models\Docker;
+use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-// TODO: Gist Immitation
-class GistResource extends Resource
+class DockerResource extends Resource
 {
-    protected static ?string $model = Gist::class;
-    protected static ?string $navigationIcon = 'heroicon-c-rocket-launch';
+    protected static ?string $model = Docker::class;
+
+    protected static ?string $navigationIcon = 'heroicon-s-cube-transparent';
 
     public static function form(Form $form): Form
     {
@@ -53,9 +56,9 @@ class GistResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListGists::route('/'),
-            'create' => Pages\CreateGist::route('/create'),
-            'edit' => Pages\EditGist::route('/{record}/edit'),
+            'index' => Pages\ListDockers::route('/'),
+            'create' => Pages\CreateDocker::route('/create'),
+            'edit' => Pages\EditDocker::route('/{record}/edit'),
         ];
     }
 }
