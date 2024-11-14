@@ -11,9 +11,15 @@ if [ ! -f ".env" ]; then
     echo ".env file created and APP_KEY generated."
 fi
 
+php artisan migrate:refresh --quiet --no-interaction --force
+php artisan storage:link --quiet --no-interaction --force
+php artisan optimize --quiet --no-interaction
+php artisan filament:optimize --quiet --no-interaction
+
 # Set ownership of the files to www-data user
 chown -R www-data:www-data /var/www/html
 chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Execute the CMD passed as arguments
 exec "$@"
