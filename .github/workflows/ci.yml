@@ -14,9 +14,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
@@ -28,24 +25,21 @@ jobs:
       # - name: Set up Docker BuildKit
       #   run: echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
 
+      # - name: Set up environment file
+      #   run: echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
+
       - name: Set version number
         run: echo ${{ github.sha }} > version
       
       - run: cp docker/Dockerfile.main ./Dockerfile
+      - run: cp docker/docker-entrypoint.sh ./docker-entrypoint.sh
       - name: Build & Push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: Dockerfilw
-          push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+        run: |
+          docker build \
+          -t ghcr.io/${{ github.repository }}:latest \
+          -t ghcr.io/${{ github.repository }}:${{ github.sha }} .
 
-      #   run: |
-      #     docker build \
-      #     -t ghcr.io/${{ github.repository }}:latest \
-      #     -t ghcr.io/${{ github.repository }}:${{ github.sha }} .
-
-      # - name: Push Docker images
-      #   run: |
-      #     docker push ghcr.io/${{ github.repository }}:latest
-      #     docker push ghcr.io/${{ github.repository }}:${{ github.sha }}
+      - name: Push Docker images
+        run: |
+          docker push ghcr.io/${{ github.repository }}:latest
+          docker push ghcr.io/${{ github.repository }}:${{ github.sha }}
