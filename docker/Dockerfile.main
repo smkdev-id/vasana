@@ -23,6 +23,12 @@ WORKDIR /var/www/html
 # Application files to the container
 COPY . /var/www/html
 
+# Copy the entrypoint script into the container
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+
+# Make the entrypoint script executable
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 # Run Laravel-specific setup commands
 RUN composer install --quiet --no-interaction --no-dev --prefer-dist --optimize-autoloader
 
@@ -47,6 +53,9 @@ RUN chown -R www-data:www-data /var/www/html
 
 # Port 80 for Apache
 EXPOSE 80
+
+# Use the custom entrypoint script
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
 # Start Apache when the container starts
 CMD ["apache2-foreground"]
