@@ -23,6 +23,12 @@ WORKDIR /var/www/html
 # Application files to the container
 COPY . /var/www/html
 
+# Make sure that the .env file is copied
+COPY .env.example .env
+
+# Generate an application key
+RUN php artisan key:generate --quiet --no-interaction
+
 # Run Laravel-specific setup commands
 RUN composer install --quiet --no-interaction --no-dev --prefer-dist --optimize-autoloader
 
@@ -34,7 +40,6 @@ RUN php artisan storage:link --quiet --no-interaction --force
 
 # Run optimizations
 RUN php artisan optimize --quiet --no-interaction
-
 RUN php artisan filament:optimize --quiet --no-interaction
 
 # Set ownership of the files to www-data user
