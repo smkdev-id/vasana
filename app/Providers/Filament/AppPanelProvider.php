@@ -27,13 +27,14 @@ class AppPanelProvider extends PanelProvider
             ->id('app')
             ->path('app')
             ->login()
+            ->brandLogo('https://smkdev.storage.googleapis.com/wp/SMKDEV-Logo-Long-150x38.png')
+            ->favicon(url('https://smkdev.storage.googleapis.com/wp/icon-50x50.png'))
             ->registration()
-            ->passwordReset()
-            ->emailVerification()
+            // ->passwordReset()
+            // ->emailVerification()
             ->colors([
                 'primary' => Color::Amber,
             ])
-            ->brandLogo('https://smkdev.storage.googleapis.com/wp/SMKDEV-Logo-Long-150x38.png')
             ->discoverResources(in: app_path('Filament/User/Resources'), for: 'App\\Filament\\User\\Resources')
             ->discoverPages(in: app_path('Filament/User/Pages'), for: 'App\\Filament\\User\\Pages')
             ->discoverClusters(in: app_path('Filament/User/Clusters'), for: 'App\\Filament\\User\\Clusters')
