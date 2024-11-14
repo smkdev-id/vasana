@@ -20,4 +20,4 @@ yarn-error.log
 /.vscode
 /.zed
 Dockerfile
-app/Filament/Widgets/_later
+docker-compose.yml

@@ -201,3 +201,4 @@ dist
 Dockerfile
 Dockerfile.*
 docker-compose.*
+docker/
