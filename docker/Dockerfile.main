@@ -26,9 +26,6 @@ COPY . /var/www/html
 # Run Laravel-specific setup commands
 RUN composer install --quiet --no-interaction --no-dev --prefer-dist --optimize-autoloader
 
-# Make sure that the .env file is copied
-COPY .env.example .env
-
 # Generate an application key
 RUN php artisan key:generate --quiet --no-interaction
 
