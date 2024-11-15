@@ -11,9 +11,13 @@ if [ ! -f ".env" ]; then
     echo ".env file created and APP_KEY generated."
 fi
 
-php artisan migrate:refresh --quiet --no-interaction --force
-php artisan storage:link --quiet --no-interaction --force
-php artisan optimize --quiet --no-interaction
+php artisan migrate --quiet --no-interaction
+php artisan storage:link --quiet --no-interaction
+php artisan cache:clear --quiet --no-interaction
+php artisan config:clear --quiet --no-interaction
+php artisan route:clear --quiet --no-interaction
+php artisan view:clear --quiet --no-interaction
+php artisan optimize:clear --quiet --no-interaction
 php artisan filament:optimize --quiet --no-interaction
 
 # Set ownership of the files to www-data user
