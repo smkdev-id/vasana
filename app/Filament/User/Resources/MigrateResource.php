@@ -18,6 +18,7 @@ class MigrateResource extends Resource
 {
     protected static ?string $model = Migrate::class;
     protected static ?string $navigationIcon = 'heroicon-s-chevron-double-down';
+    protected static ?string $navigationGroup = 'Laravel';
     
     public static function form(Form $form): Form
     {
@@ -60,5 +61,10 @@ class MigrateResource extends Resource
             'create' => Pages\CreateMigrate::route('/create'),
             'edit' => Pages\EditMigrate::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Laravel Migration';
     }
 }

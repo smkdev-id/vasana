@@ -4,16 +4,18 @@
 
 # Can update later for more deployment puposes
 
+name: smkdev-platform
 
 services:
-  tools:
+  app:
     image: ghcr.io/smkdev-id/smkdev-tools:latest
-    container_name: smkdev-tools-app
+    restart: always
+    pull_policy: always
     volumes:
       - app:/var/www/html
     environment:
-      - APP_ENV=local
-      - APP_DEBUG=true
+      - APP_ENV=prod
+      - APP_DEBUG=false
     networks:
       - public
 

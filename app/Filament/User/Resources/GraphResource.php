@@ -62,4 +62,9 @@ class GraphResource extends Resource
             'edit' => Pages\EditGraph::route('/{record}/edit'),
         ];
     }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'GraphQL Visualizer';
+    }
 }

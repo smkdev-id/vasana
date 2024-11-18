@@ -18,6 +18,7 @@ class EncryptionResource extends Resource
     protected static ?string $model = Encryption::class;
 
     protected static ?string $navigationIcon = 'heroicon-m-finger-print';
+    protected static ?string $navigationGroup = 'Engineering';
 
     public static function form(Form $form): Form
     {
@@ -60,5 +61,10 @@ class EncryptionResource extends Resource
             'create' => Pages\CreateEncryption::route('/create'),
             'edit' => Pages\EditEncryption::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Encryptor Decryptor';
     }
 }

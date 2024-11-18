@@ -15,7 +15,7 @@ class GithubResource extends Resource
 {
     protected static ?string $model = Github::class;
     protected static ?string $navigationIcon = 'heroicon-s-beaker';
-//    protected static ?string $cluster = Tools::class;
+    protected static ?string $navigationGroup = 'Engineering';
     public static function form(Form $form): Form
     {
         return $form
@@ -57,5 +57,10 @@ class GithubResource extends Resource
             'create' => Pages\CreateGithub::route('/create'),
             'edit' => Pages\EditGithub::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Github Action';
     }
 }

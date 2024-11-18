@@ -16,6 +16,7 @@ class LinterResource extends Resource
 {
     protected static ?string $model = Linter::class;
     protected static ?string $navigationIcon = 'heroicon-c-sparkles';
+    protected static ?string $navigationGroup = 'Engineering';
 
     public static function form(Form $form): Form
     {
@@ -58,5 +59,10 @@ class LinterResource extends Resource
             'create' => Pages\CreateLinter::route('/create'),
             'edit' => Pages\EditLinter::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Code Linter';
     }
 }

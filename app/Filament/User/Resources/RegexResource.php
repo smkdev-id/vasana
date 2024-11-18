@@ -18,6 +18,7 @@ class RegexResource extends Resource
 {
     protected static ?string $model = Regex::class;
     protected static ?string $navigationIcon = 'heroicon-s-arrow-path-rounded-square';
+    protected static ?string $navigationGroup = 'Engineering';
 
     public static function form(Form $form): Form
     {
@@ -60,5 +61,10 @@ class RegexResource extends Resource
             'create' => Pages\CreateRegex::route('/create'),
             'edit' => Pages\EditRegex::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Regex Reader';
     }
 }

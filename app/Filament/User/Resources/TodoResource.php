@@ -18,6 +18,7 @@ class TodoResource extends Resource
 {
     protected static ?string $model = Todo::class;
     protected static ?string $navigationIcon = 'heroicon-o-list-bullet';
+    protected static ?string $navigationGroup = 'Note-Taking';
 
     public static function form(Form $form): Form
     {
@@ -60,5 +61,15 @@ class TodoResource extends Resource
             'create' => Pages\CreateTodo::route('/create'),
             'edit' => Pages\EditTodo::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'To-Do List';
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }

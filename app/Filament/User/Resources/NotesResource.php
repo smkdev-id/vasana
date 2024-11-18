@@ -18,6 +18,7 @@ class NotesResource extends Resource
 {
     protected static ?string $model = Notes::class;
     protected static ?string $navigationIcon = 'heroicon-m-paper-clip';
+    protected static ?string $navigationGroup = 'Note-Taking';
 
     public static function form(Form $form): Form
     {
@@ -60,5 +61,10 @@ class NotesResource extends Resource
             'create' => Pages\CreateNotes::route('/create'),
             'edit' => Pages\EditNotes::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Notepad';
     }
 }

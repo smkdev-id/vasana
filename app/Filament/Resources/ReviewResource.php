@@ -13,11 +13,10 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-// TODO: RAG for Code Review
+// TODO: Code Review
 class ReviewResource extends Resource
 {
     protected static ?string $model = Review::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form

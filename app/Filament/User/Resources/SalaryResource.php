@@ -18,6 +18,7 @@ class SalaryResource extends Resource
     protected static ?string $model = Salary::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'AI Magic';
 
     public static function form(Form $form): Form
     {
@@ -60,5 +61,10 @@ class SalaryResource extends Resource
             'create' => Pages\CreateSalary::route('/create'),
             'edit' => Pages\EditSalary::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Predict Salary';
     }
 }

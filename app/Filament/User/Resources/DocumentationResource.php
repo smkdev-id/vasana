@@ -18,6 +18,7 @@ class DocumentationResource extends Resource
     protected static ?string $model = Documentation::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationGroup = 'Engineering';
 
     public static function form(Form $form): Form
     {
@@ -60,5 +61,10 @@ class DocumentationResource extends Resource
             'create' => Pages\CreateDocumentation::route('/create'),
             'edit' => Pages\EditDocumentation::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'API Documentation';
     }
 }

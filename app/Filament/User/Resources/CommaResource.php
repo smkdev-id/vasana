@@ -67,4 +67,9 @@ class CommaResource extends Resource
             'edit' => Pages\EditComma::route('/{record}/edit'),
         ];
     }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'CSV to Table';
+    }
 }
