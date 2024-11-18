@@ -24,14 +24,15 @@ class AppPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->id('app')
-            ->path('app')
+            ->id('tools')
+            ->path('tools')
             ->login()
             ->brandLogo('https://smkdev.storage.googleapis.com/wp/SMKDEV-Logo-Long-150x38.png')
             ->favicon(url('https://smkdev.storage.googleapis.com/wp/icon-50x50.png'))
             ->registration()
             // ->passwordReset()
             // ->emailVerification()
+            ->font("Poppins")
             ->colors([
                 'primary' => Color::Amber,
             ])
