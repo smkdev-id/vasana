@@ -1,31 +1,40 @@
-FROM php:8.3-apache
+FROM php:apache
 
-# Install necessary libraries and PHP extensions
+# Install necessary dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
-    libpng-dev libjpeg-dev libfreetype6-dev libzip-dev unzip curl git libicu-dev libpq-dev && \
-    docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install gd pdo pdo_pgsql zip intl && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+        libpng-dev libjpeg-dev libfreetype6-dev libzip-dev libicu-dev libpq-dev unzip curl git \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd pdo pdo_pgsql zip intl \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Enable Apache mod_rewrite for Laravel
-RUN  set -ex \
-    a2enmod rewrite \
+# Enable Apache modules and configure Apache
+RUN a2enmod rewrite \
     && echo "ServerName localhost" >> /etc/apache2/apache2.conf \
-    && sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf \
-    && curl -sS https://getcomposer.org/installer | php -- \
-    --install-dir=/usr/local/bin --filename=composer
+    && sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
 
+# Copy Composer from the official Composer image
+COPY --from=composer/composer:latest-bin /composer /usr/local/bin/composer
+
+# Copy the application files into the container and install dependencies
+COPY . /usr/src/smkdev/
+RUN composer install --quiet --no-interaction --working-dir /usr/src/smkdev --optimize-autoloader --prefer-dist --no-dev \
+    && rm -rf /root/.composer/cache  # Clean up Composer cache to reduce image size
+
+# Set ownership and permissions in a single command
+RUN chown -R www-data:www-data /usr/src/smkdev && \
+    chmod -R 775 /usr/src/smkdev/storage /usr/src/smkdev/bootstrap/cache
+
+# Set the working directory
+VOLUME /var/www/html
 WORKDIR /var/www/html
-COPY . /var/www/html
 
+# Copy entrypoint script and make it executable
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh \
-    && composer install --quiet --no-interaction --no-dev --prefer-dist --optimize-autoloader \
-    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chown -R www-data:www-data /var/www/html
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
+# Expose port 80
 EXPOSE 80
 
+# Set entrypoint and default command
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-
 CMD ["apache2-foreground"]
