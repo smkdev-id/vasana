@@ -1,0 +1,11 @@
+{
+    "name": "Talent",
+    "alias": "talent",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Talent\\Providers\\TalentServiceProvider"
+    ],
+    "files": []
+}
