@@ -215,3 +215,4 @@ dist
 /Dockerfile.*
 /docker-compose.*
 /docker-entrypoint.*
+.idea
