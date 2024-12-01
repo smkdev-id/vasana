@@ -67,9 +67,4 @@ class TodoResource extends Resource
     {
         return 'To-Do List';
     }
-
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::count();
-    }
 }
