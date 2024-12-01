@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Coolsam\Modules\ModulesPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -17,6 +18,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Modules\Tools\Filament\ToolsPlugin;
 
 class AppPanelProvider extends PanelProvider
 {
@@ -24,8 +26,8 @@ class AppPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->id('tools')
-            ->path('tools')
+            ->id('user')
+            ->path('user')
             ->login()
             ->brandLogo('https://smkdev.storage.googleapis.com/wp/SMKDEV-Logo-Long-150x38.png')
             ->favicon(url('https://smkdev.storage.googleapis.com/wp/icon-50x50.png'))
@@ -74,5 +76,9 @@ class AppPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+            // ->plugins([
+            //     ToolsPlugin::make()
+            // ])
+            // ->plugin(ModulesPlugin::make());
     }
 }
